@@ -24,7 +24,8 @@ module.exports = React.createFactory React.createClass
       'nothing'
 
     if latestMessages?.length > 0
-      @setState latestMessages: latestMessages
+      @setState
+        latestMessages: latestMessages
 
   componentWillUnmount: ->
     @socket.off 'data', @onData
@@ -80,16 +81,24 @@ module.exports = React.createFactory React.createClass
           ref: 'msg'
           placeholder: 'send a message'
           style:
-            color: '#666'
+            color: '#222'
+            width: '100%'
       if @state.latestMessages
         _.map @state.latestMessages, (data) ->
-          msg = if data.id
-            "#{data.id}: #{data.msg}"
-          else if data.msg
+          msg = if data.id or data.msg
             data.msg
           else
             JSON.stringify data
           DOM.div
-            key: "#{data.room}-#{data.t}-#{data.id ? msg}"
+            key: "#{data.t}-#{data.id ? msg}"
           ,
-            msg
+            if data.id
+              DOM.span null,
+                DOM.strong null, "#{data.id}:"
+                ' '
+                DOM.span null, msg
+            else
+              DOM.em
+                style:
+                  color: '#555'
+              , msg
