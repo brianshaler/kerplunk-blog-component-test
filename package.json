@@ -2,7 +2,7 @@
   "name": "kerplunk-blog-component-test",
   "displayName": "Blog Component Test",
   "description": "Testing an embeddable react component for blog posts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "kerplunk": {
     "recommended": [
       "kerplunk-blog-hexa"
